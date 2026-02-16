@@ -1,0 +1,31 @@
+---
+/**
+ * SectionHeader Component
+ * Herbruikbare sectie header met titel en optionele subtitle
+ * 
+ * @param title - Hoofdtitel
+ * @param subtitle - Optionele ondertitel
+ * @param align - Uitlijning ('left', 'center')
+ */
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+}
+
+const { title, subtitle, align = 'center' } = Astro.props;
+
+const alignClass = align === 'center' ? 'text-center' : 'text-left';
+---
+
+<div class={`${alignClass} mb-12`}>
+  <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+    {title}
+  </h2>
+  {subtitle && (
+    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+      {subtitle}
+    </p>
+  )}
+</div>

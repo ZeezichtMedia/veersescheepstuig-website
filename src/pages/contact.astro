@@ -1,0 +1,348 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+---
+
+<BaseLayout
+  title="Contact - Het Veerse Scheepstuig"
+  description="Neem contact op met Shantykoor Het Veerse Scheepstuig. Informatie over boekingen, repetities en het bestuur."
+>
+  <!-- Hero Section -->
+  <section
+    class="relative h-[60vh] flex items-center justify-center overflow-hidden"
+  >
+    <img
+      src="/images/contact-header.webp"
+      alt="Contact Het Veerse Scheepstuig"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"
+    >
+    </div>
+
+    <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+      <h1
+        class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-2xl"
+      >
+        Contact
+      </h1>
+      <p class="text-xl md:text-2xl text-white/95 drop-shadow-lg">
+        Neem contact met ons op
+      </p>
+    </div>
+  </section>
+
+  <!-- General Info Section -->
+  <Section id="content" padding="large">
+    <div class="max-w-6xl mx-auto">
+      <SectionHeader title="Algemene gegevens" />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">
+            Shantykoor Het Veerse Scheepstuig
+          </h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <svg
+                class="w-6 h-6 text-primary mt-1 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              <div>
+                <p class="text-gray-700">p/a Vernovenhoekstraat 45</p>
+                <p class="text-gray-700">4443 AR Nisse</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <svg
+                class="w-6 h-6 text-primary flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                ></path>
+              </svg>
+              <a href="tel:0640708902" class="text-gray-700 hover:text-primary"
+                >06 40 70 89 02</a
+              >
+            </div>
+
+            <div class="flex items-center gap-3">
+              <svg
+                class="w-6 h-6 text-primary flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                ></path>
+              </svg>
+              <a
+                href="mailto:info@veersescheepstuig.nl"
+                class="text-gray-700 hover:text-primary"
+                >info@veersescheepstuig.nl</a
+              >
+            </div>
+          </div>
+
+          <div class="mt-8 pt-8 border-t border-gray-200">
+            <p class="text-sm text-gray-600 mb-2">
+              <strong>IBAN:</strong> NL51RABO0365241385
+            </p>
+            <p class="text-sm text-gray-600 mb-2">
+              <strong>BIC:</strong> RABONL2U
+            </p>
+            <p class="text-sm text-gray-600"><strong>KvK:</strong> 2205.6536</p>
+          </div>
+        </div>
+
+        <div class="bg-primary-50 p-8 rounded-xl">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">Repetities</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <svg
+                class="w-6 h-6 text-primary mt-1 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                ></path>
+              </svg>
+              <div>
+                <p class="text-gray-900 font-bold">Elke woensdag avond</p>
+                <p class="text-gray-700">19:45 - 21:45 uur</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <svg
+                class="w-6 h-6 text-primary mt-1 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                ></path>
+              </svg>
+              <div>
+                <p class="text-gray-900 font-bold">Wijkgebouw 't Praetuus</p>
+                <p class="text-gray-700">Frans Naereboutsraat 3</p>
+                <p class="text-gray-700">4351 NH Veere</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 p-4 bg-white rounded-lg">
+            <p class="text-gray-700 text-sm">
+              <strong>Tip:</strong> Kom gerust eens langs bij een repetitie om kennis
+              te maken!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Board Section -->
+  <Section background="gray" padding="large">
+    <div class="max-w-6xl mx-auto">
+      <SectionHeader
+        title="Dagelijks bestuur"
+        subtitle="Zo kunt u ons bereiken"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+          <div class="text-primary-600 font-bold mb-2">Voorzitter</div>
+          <h4 class="text-xl font-bold text-gray-900 mb-4">Rob van Keulen</h4>
+          <a
+            href="tel:0610018196"
+            class="text-gray-700 hover:text-primary flex items-center gap-2"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              ></path>
+            </svg>
+            06 10 01 81 96
+          </a>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+          <div class="text-primary-600 font-bold mb-2">Secretaris</div>
+          <h4 class="text-xl font-bold text-gray-900 mb-4">Chris de Groot</h4>
+          <div class="space-y-2">
+            <a
+              href="mailto:scheepstuig@zeelandnet.nl"
+              class="text-gray-700 hover:text-primary flex items-center gap-2"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                ></path>
+              </svg>
+              scheepstuig@zeelandnet.nl
+            </a>
+            <a
+              href="tel:0683350536"
+              class="text-gray-700 hover:text-primary flex items-center gap-2"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                ></path>
+              </svg>
+              06 83 35 05 36
+            </a>
+          </div>
+          <p class="text-sm text-gray-600 mt-4">
+            <em>Hier kunt u ook de gratis nieuwsbrief aanvragen</em>
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+          <div class="text-primary-600 font-bold mb-2">Penningmeester</div>
+          <h4 class="text-xl font-bold text-gray-900 mb-4">
+            Luc van Puymbroeck
+          </h4>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+          <div class="text-primary-600 font-bold mb-2">
+            Concertcoördinatie (boekingen)
+          </div>
+          <h4 class="text-xl font-bold text-gray-900 mb-4">Henk de Jonge</h4>
+          <p class="text-sm text-gray-600 mb-2">Algemeen bestuurslid</p>
+          <a
+            href="mailto:hjdejonge@zeelandnet.nl"
+            class="text-gray-700 hover:text-primary flex items-center gap-2"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              ></path>
+            </svg>
+            hjdejonge@zeelandnet.nl
+          </a>
+        </div>
+
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+          <div class="text-primary-600 font-bold mb-2">Dirigent</div>
+          <h4 class="text-xl font-bold text-gray-900 mb-4">Moritz Benschop</h4>
+          <a
+            href="mailto:dirigent@veersescheepstuig.nl"
+            class="text-gray-700 hover:text-primary flex items-center gap-2"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              ></path>
+            </svg>
+            dirigent@veersescheepstuig.nl
+          </a>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Newsletter Section -->
+  <Section id="nieuwsbrief" padding="large">
+    <div class="max-w-4xl mx-auto text-center">
+      <SectionHeader
+        title="Blijf op de hoogte"
+        subtitle="Ontvang onze gratis nieuwsbrief"
+      />
+
+      <div class="bg-primary-50 p-8 rounded-xl mt-8">
+        <p class="text-xl text-gray-700 mb-6">
+          Wilt u op de hoogte blijven van onze optredens, repetities en andere
+          activiteiten? Vraag dan onze gratis nieuwsbrief aan!
+        </p>
+        <a
+          href="mailto:scheepstuig@zeelandnet.nl?subject=Aanvraag nieuwsbrief"
+          class="inline-block bg-primary hover:bg-primary-600 text-white font-bold px-10 py-5 rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg"
+        >
+          Nieuwsbrief aanvragen
+        </a>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

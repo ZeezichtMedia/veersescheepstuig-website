@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Colors - Veerse Scheepstuig */
+    --color-primary: #1991B9;
+    --color-primary-50: #E8F4F8;
+    --color-primary-100: #D1E9F1;
+    --color-primary-200: #A3D3E3;
+    --color-primary-300: #75BDD5;
+    --color-primary-400: #47A7C7;
+    --color-primary-500: #1991B9;
+    --color-primary-600: #147494;
+    --color-primary-700: #0F576F;
+    --color-primary-800: #0A3A4A;
+    --color-primary-900: #051D25;
+
+    --color-secondary: #111D4A;
+    --color-secondary-50: #E8EAF2;
+    --color-secondary-100: #D1D5E5;
+    --color-secondary-200: #A3ABCB;
+    --color-secondary-300: #7581B1;
+    --color-secondary-400: #475797;
+    --color-secondary-500: #111D4A;
+    --color-secondary-600: #0E173B;
+    --color-secondary-700: #0A112C;
+    --color-secondary-800: #070C1E;
+    --color-secondary-900: #03060F;
+  }
+
+  body {
+    font-family: 'Jost', system-ui, sans-serif;
+    background-color: #FFFEF9;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+}

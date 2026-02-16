@@ -1,0 +1,158 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import { getEntry } from "astro:content";
+
+// Load content from CMS
+// Load content from CMS
+const koorData = await getEntry("pages", "koor");
+
+interface Geschiedenis {
+  title: string;
+  body: string;
+  intro1?: string;
+  intro2?: string;
+  koorTitle?: string;
+  koor1?: string;
+  koor2?: string;
+  oprichtingTitle?: string;
+  oprichting1?: string;
+  oprichting2?: string;
+  groeiTitle?: string;
+  groei1?: string;
+  groei2?: string;
+  dirigentInfo?: string;
+}
+
+interface KoorData {
+  heroImage: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  geschiedenis: Geschiedenis;
+}
+
+const data = (koorData?.data as unknown as KoorData) || {
+  heroImage: "/images/contact-header.webp",
+  heroTitle: "Het Koor",
+  heroSubtitle: "Vierstemmig koor met passie voor maritieme muziek",
+  geschiedenis: {
+    title: "Stukje geschiedenis",
+    body: "",
+  },
+};
+---
+
+<BaseLayout
+  title="Het Koor - Het Veerse Scheepstuig"
+  description="Ontdek het vierstemmig koor van Het Veerse Scheepstuig. De geschiedenis vanaf de oprichting in 1999 tot nu."
+>
+  <!-- Hero Section with Image -->
+  <section
+    class="relative h-[60vh] flex items-center justify-center overflow-hidden"
+  >
+    <img
+      src={data.heroImage}
+      alt="Het Veerse Scheepstuig"
+      class="absolute inset-0 w-full h-full object-cover"
+      width="1920"
+      height="1080"
+      loading="eager"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"
+    >
+    </div>
+
+    <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+      <h1
+        class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-2xl"
+      >
+        {data.heroTitle}
+      </h1>
+      <p class="text-xl md:text-2xl text-white/95 drop-shadow-lg">
+        {data.heroSubtitle}
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <Section id="content" padding="large">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeader title={data.geschiedenis.title} align="left" />
+
+      <div class="prose prose-lg max-w-none">
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          {data.geschiedenis.intro1}
+        </p>
+
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          {data.geschiedenis.intro2}
+        </p>
+
+        <h3 class="text-3xl font-bold text-gray-900 mt-12 mb-6">
+          {data.geschiedenis.koorTitle}
+        </h3>
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          {data.geschiedenis.koor1}
+        </p>
+
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          {data.geschiedenis.koor2}
+        </p>
+
+        <h3 class="text-3xl font-bold text-gray-900 mt-12 mb-6">
+          {data.geschiedenis.oprichtingTitle}
+        </h3>
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          {data.geschiedenis.oprichting1}
+        </p>
+
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          {data.geschiedenis.oprichting2}
+        </p>
+
+        <h3 class="text-3xl font-bold text-gray-900 mt-12 mb-6">
+          {data.geschiedenis.groeiTitle}
+        </h3>
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          {data.geschiedenis.groei1}
+        </p>
+
+        <div class="bg-primary-50 p-8 rounded-xl my-8">
+          <p class="text-2xl font-bold text-primary-700 mb-2">Sinds 2024</p>
+          <p class="text-xl text-gray-700">
+            {data.geschiedenis.dirigentInfo}
+            <a
+              href="/dirigent"
+              class="text-primary-600 hover:text-primary-700 underline"
+              >Meer over Moritz</a
+            >
+          </p>
+        </div>
+
+        <p class="text-xl text-gray-700 leading-relaxed">
+          {data.geschiedenis.groei2}
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- CTA Section -->
+  <Section background="gray" padding="large">
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Wilt u meer weten?
+      </h2>
+      <p class="text-xl text-gray-700 mb-8">
+        Neem contact met ons op of kom eens langs bij een repetitie!
+      </p>
+      <a
+        href="/contact"
+        class="inline-block bg-primary hover:bg-primary-600 text-white font-bold px-10 py-5 rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg"
+      >
+        Neem contact op
+      </a>
+    </div>
+  </Section>
+</BaseLayout>

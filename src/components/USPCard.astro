@@ -1,0 +1,99 @@
+---
+/**
+ * USPCard Component
+ * Herbruikbare kaart voor Unique Selling Points
+ * 
+ * @param title - Titel van de USP
+ * @param description - Beschrijving
+ * @param icon - Lucide icon naam (optioneel)
+ * @param color - Kleurthema (blue, green, yellow, purple)
+ */
+
+import * as LucideIcons from 'lucide-astro';
+
+interface Props {
+  title: string;
+  description: string;
+  icon?: string;
+  color?: 'blue' | 'green' | 'yellow' | 'purple' | 'cyan';
+}
+
+const { title, description, icon, color = 'blue' } = Astro.props;
+
+// Map icon names to Lucide components
+const iconMap: Record<string, any> = {
+  // Maritime/Music icons
+  'music': LucideIcons.Music,
+  'anchor': LucideIcons.Anchor,
+  'ship': LucideIcons.Ship,
+  'waves': LucideIcons.Waves,
+  'users': LucideIcons.Users,
+  'star': LucideIcons.Star,
+  'music-2': LucideIcons.Music2,
+  'mic': LucideIcons.Mic,
+  'guitar': LucideIcons.Guitar,
+  // General icons
+  'route': LucideIcons.Route,
+  'calendar-check-2': LucideIcons.CalendarCheck2,
+  'calendar': LucideIcons.Calendar,
+  'leaf': LucideIcons.Leaf,
+  'map-pin': LucideIcons.MapPin,
+  'car': LucideIcons.Car,
+  'shower-head': LucideIcons.ShowerHead,
+  'wifi': LucideIcons.Wifi,
+  'zap': LucideIcons.Zap,
+  'tent': LucideIcons.Tent,
+  'home': LucideIcons.Home,
+  'bed': LucideIcons.Bed,
+  'utensils': LucideIcons.Utensils,
+  'coffee': LucideIcons.Coffee,
+  'gamepad-2': LucideIcons.Gamepad2,
+  'bike': LucideIcons.Bike,
+  'dog': LucideIcons.Dog,
+  'check-circle': LucideIcons.CheckCircle,
+  'shield-check': LucideIcons.ShieldCheck,
+  'moon': LucideIcons.Moon,
+  'sun': LucideIcons.Sun,
+  'thermometer': LucideIcons.Thermometer,
+  'snowflake': LucideIcons.Snowflake,
+  'flame': LucideIcons.Flame,
+  'fish': LucideIcons.Fish,
+  'target': LucideIcons.Target,
+  'euro': LucideIcons.Euro,
+  'gift': LucideIcons.Gift,
+};
+
+const IconComponent = icon ? iconMap[icon] : null;
+
+const colorClasses = {
+  blue: 'bg-primary',
+  green: 'bg-secondary',
+  yellow: 'bg-primary-400',
+  purple: 'bg-secondary-400',
+  cyan: 'bg-primary-300',
+};
+
+const iconColorClasses = {
+  blue: 'text-blue-600',
+  green: 'text-green-600',
+  yellow: 'text-yellow-600',
+  purple: 'text-purple-600',
+  cyan: 'text-cyan-600',
+};
+---
+
+<div class="flex gap-6 items-start">
+  {IconComponent && (
+    <div class={`flex-shrink-0 w-16 h-16 rounded-full ${colorClasses[color]} flex items-center justify-center`}>
+      <IconComponent size={32} class="text-white" />
+    </div>
+  )}
+  <div class="flex-1">
+    <h3 class="font-heading font-bold text-gray-900 mb-2 text-xl">
+      {title}
+    </h3>
+    <p class="text-gray-700 leading-relaxed">
+      {description}
+    </p>
+  </div>
+</div>

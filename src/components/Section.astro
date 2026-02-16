@@ -1,0 +1,46 @@
+---
+/**
+ * Section Component
+ * Herbruikbare sectie container met consistente spacing en styling
+ * 
+ * @param id - HTML id voor anker links
+ * @param background - Achtergrond kleur ('white', 'gray', 'blue')
+ * @param padding - Padding grootte ('normal', 'large', 'small')
+ */
+
+interface Props {
+  id?: string;
+  background?: 'white' | 'gray' | 'blue' | 'gradient';
+  padding?: 'small' | 'normal' | 'large';
+  class?: string;
+}
+
+const { 
+  id, 
+  background = 'white',
+  padding = 'normal',
+  class: customClass = ''
+} = Astro.props;
+
+const bgClasses = {
+  white: 'bg-white',
+  gray: 'bg-gray-50',
+  blue: 'bg-blue-50',
+  gradient: 'bg-gradient-to-b from-white to-gray-50',
+};
+
+const paddingClasses = {
+  small: 'py-12',
+  normal: 'py-20',
+  large: 'py-32',
+};
+---
+
+<section 
+  id={id}
+  class={`${bgClasses[background]} ${paddingClasses[padding]} px-4 ${customClass}`}
+>
+  <div class="max-w-6xl mx-auto">
+    <slot />
+  </div>
+</section>

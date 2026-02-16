@@ -1,0 +1,327 @@
+# Decap CMS Configuration voor Veerse Scheepstuig
+# Professional setup met Cloudinary media management
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Media folders (voor fallback als Cloudinary niet werkt)
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+# Cloudinary voor alle media (afbeeldingen)
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: dksisczdx
+    api_key: 199263572228886
+    
+# Publicatie workflow (optioneel - zet op false voor direct publiceren)
+publish_mode: editorial_workflow
+
+# Lokale backend voor development (handig tijdens bouwen)
+local_backend: true
+
+# Content Collections
+collections:
+  # Pagina's
+  - name: "pages"
+    label: "Pagina's"
+    files:
+      - label: "Homepage"
+        name: "home"
+        file: "src/content/pages/home.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string", default: "Home", required: true}
+          # Hero Section
+          - label: "Hero Sectie"
+            name: "hero"
+            widget: "object"
+            collapsed: false
+            fields:
+              - {label: "Titel", name: "title", widget: "string", required: true}
+              - {label: "Ondertitel", name: "subtitle", widget: "text", required: true}
+              - {label: "Video URL (optioneel)", name: "videoUrl", widget: "string", required: false}
+              - {label: "Achtergrond Afbeelding (Fallback)", name: "image", widget: "image", required: true}
+              - {label: "CTA Knop Tekst", name: "ctaText", widget: "string", default: "Boek ons voor een optreden"}
+              - {label: "CTA Knop Link", name: "ctaLink", widget: "string", default: "/contact"}
+
+          # Introductie
+          - label: "Introductie"
+            name: "intro"
+            widget: "object"
+            fields:
+              - {label: "Titel", name: "title", widget: "string"}
+              - {label: "Tekst", name: "body", widget: "markdown"}
+
+          # USP's
+          - label: "USP's"
+            name: "usps"
+            widget: "list"
+            collapsed: false
+            summary: "{{fields.icon}} {{fields.name}}"
+            fields:
+              - {label: "Naam", name: "name", widget: "string"}
+              - label: "Icoon"
+                name: "icon"
+                widget: "select"
+                default: "users"
+                options:
+                  - {label: "👥 Gebruikers/Koor", value: "users"}
+                  - {label: "🎵 Muziek", value: "music"}
+                  - {label: "⭐ Ster", value: "star"}
+                  - {label: "⚓ Anker", value: "anchor"}
+                  - {label: "🚢 Schip", value: "ship"}
+                  - {label: "🌊 Golven", value: "waves"}
+                  - {label: "🎸 Gitaar", value: "guitar"}
+                  - {label: "🎤 Microfoon", value: "mic"}
+              - {label: "Beschrijving", name: "description", widget: "text"}
+
+      - label: "Het Koor"
+        name: "koor"
+        file: "src/content/pages/koor.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string", default: "Het Koor"}
+          - {label: "Hero Afbeelding", name: "heroImage", widget: "image"}
+          - {label: "Hero Titel", name: "heroTitle", widget: "string", default: "Het Koor"}
+          - {label: "Hero Subtitle", name: "heroSubtitle", widget: "string"}
+          - label: "Geschiedenis Sectie"
+            name: "geschiedenis"
+            widget: "object"
+            fields:
+              - {label: "Titel", name: "title", widget: "string"}
+              - {label: "Intro Paragraaf 1", name: "intro1", widget: "text"}
+              - {label: "Intro Paragraaf 2", name: "intro2", widget: "text"}
+              - {label: "Vierstemmig Koor - Titel", name: "koorTitle", widget: "string", default: "Ons vierstemmig koor"}
+              - {label: "Vierstemmig Koor - Paragraaf 1", name: "koor1", widget: "text"}
+              - {label: "Vierstemmig Koor - Paragraaf 2", name: "koor2", widget: "text"}
+              - {label: "Oprichting - Titel", name: "oprichtingTitle", widget: "string", default: "De oprichting in 1999"}
+              - {label: "Oprichting - Paragraaf 1", name: "oprichting1", widget: "text"}
+              - {label: "Oprichting - Paragraaf 2", name: "oprichting2", widget: "text"}
+              - {label: "Groei - Titel", name: "groeiTitle", widget: "string", default: "Groei en ontwikkeling"}
+              - {label: "Groei - Paragraaf 1", name: "groei1", widget: "text"}
+              - {label: "Groei - Dirigent Info", name: "dirigentInfo", widget: "text", default: "Sinds 2024 staat het koor onder de muzikale leiding van dirigent Moritz Benschop"}
+              - {label: "Groei - Paragraaf 2", name: "groei2", widget: "text"}
+
+      - label: "Dirigent"
+        name: "dirigent"
+        file: "src/content/pages/dirigent.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string", default: "Dirigent"}
+          - {label: "Hero Afbeelding", name: "heroImage", widget: "image"}
+          - {label: "Naam", name: "name", widget: "string", default: "Moritz Benschop"}
+          - {label: "Bijnaam", name: "nickname", widget: "string", default: "The Jumping Man"}
+          - {label: "Geboortedatum", name: "birthdate", widget: "string"}
+          - {label: "Geboorteplaats", name: "birthplace", widget: "string"}
+          - label: "Bio"
+            name: "bio"
+            widget: "object"
+            fields:
+              - {label: "Introductie", name: "intro", widget: "markdown"}
+              - {label: "Hoe het begon", name: "beginning", widget: "markdown"}
+              - {label: "Van gospel tot zeemanslied", name: "journey", widget: "markdown"}
+          - label: "Ervaring"
+            name: "experience"
+            widget: "list"
+            fields:
+              - {label: "Periode", name: "period", widget: "string"}
+              - {label: "Functie", name: "role", widget: "string"}
+              - {label: "Organisatie", name: "organization", widget: "string"}
+          - {label: "Motto", name: "motto", widget: "string"}
+
+      - label: "Het Combo"
+        name: "combo"
+        file: "src/content/pages/combo.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string", default: "Het Combo"}
+          - {label: "Hero Afbeelding", name: "heroImage", widget: "image"}
+          - {label: "Aantal Muzikanten", name: "numberOfMusicians", widget: "number", default: 5}
+          - {label: "Introductie Tekst", name: "intro", widget: "markdown"}
+          - label: "Instrumenten"
+            name: "instruments"
+            widget: "list"
+            fields:
+              - {label: "Naam", name: "name", widget: "string"}
+              - {label: "Beschrijving", name: "description", widget: "text"}
+          - {label: "Repetitie Info", name: "rehearsalInfo", widget: "markdown"}
+
+      - label: "Bestuur"
+        name: "bestuur"
+        file: "src/content/pages/bestuur.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string", default: "Bestuur"}
+          - {label: "Hero Afbeelding", name: "heroImage", widget: "image"}
+          - label: "Dagelijks Bestuur"
+            name: "board"
+            widget: "list"
+            fields:
+              - {label: "Functie", name: "role", widget: "string"}
+              - {label: "Naam", name: "name", widget: "string"}
+              - {label: "Email", name: "email", widget: "string", required: false}
+              - {label: "Telefoon", name: "phone", widget: "string", required: false}
+              - {label: "Extra Info", name: "info", widget: "text", required: false}
+          - label: "Algemene Gegevens"
+            name: "general"
+            widget: "object"
+            fields:
+              - {label: "Adres", name: "address", widget: "string"}
+              - {label: "Postcode", name: "zipcode", widget: "string"}
+              - {label: "Plaats", name: "city", widget: "string"}
+              - {label: "Telefoon", name: "phone", widget: "string"}
+              - {label: "Email", name: "email", widget: "string"}
+              - {label: "IBAN", name: "iban", widget: "string"}
+              - {label: "BIC", name: "bic", widget: "string"}
+              - {label: "KvK", name: "kvk", widget: "string"}
+
+      - label: "Repertoire"
+        name: "repertoire"
+        file: "src/content/pages/repertoire.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string", default: "Repertoire"}
+          - {label: "Hero Afbeelding", name: "heroImage", widget: "image"}
+          - {label: "Introductie", name: "intro", widget: "markdown"}
+          - label: "Muziekstijlen"
+            name: "styles"
+            widget: "list"
+            fields:
+              - {label: "Naam", name: "name", widget: "string"}
+              - {label: "Beschrijving", name: "description", widget: "text"}
+          - label: "Talen"
+            name: "languages"
+            widget: "list"
+            fields:
+              - {label: "Taal", name: "language", widget: "string"}
+
+      - label: "Concerten"
+        name: "concerten"
+        file: "src/content/pages/concerten.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string", default: "Concerten"}
+          - {label: "Hero Afbeelding", name: "heroImage", widget: "image"}
+          - {label: "Introductie", name: "intro", widget: "text", required: false}
+          - label: "Aankomende Concerten"
+            name: "concerts"
+            widget: "list"
+            summary: "{{fields.dayOfWeek}} {{fields.date}} - {{fields.title}}"
+            fields:
+              - {label: "Datum", name: "date", widget: "datetime", date_format: "DD-MM-YYYY", time_format: false, format: "YYYY-MM-DD"}
+              - label: "Dag van de week"
+                name: "dayOfWeek"
+                widget: "select"
+                options: ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"]
+              - {label: "Titel/Evenement", name: "title", widget: "string", hint: "Bijv: Zomermarkt, Braderie, Kerkje Zoutelande"}
+              - {label: "Locatie", name: "location", widget: "string", hint: "Bijv: Veerweg Kamperland"}
+              - {label: "Adres (optioneel)", name: "address", widget: "string", required: false}
+              - label: "Optredens"
+                name: "performances"
+                widget: "list"
+                min: 1
+                max: 5
+                summary: "{{fields.time}}"
+                fields:
+                  - {label: "Tijdstip", name: "time", widget: "string", hint: "Bijv: 14:00 - 14:35"}
+              - {label: "Extra Info", name: "info", widget: "text", required: false, hint: "Bijv: Gratis toegang, Entree €5"}
+
+      - label: "Foto's & Video's"
+        name: "fotos-videos"
+        file: "src/content/pages/fotos-videos.md"
+        fields:
+          - {label: "Titel", name: "title", widget: "string", default: "Foto's & Video's"}
+          - {label: "Hero Afbeelding", name: "heroImage", widget: "image"}
+          - {label: "Introductie", name: "intro", widget: "text", required: false}
+          - label: "Galerijen per Jaar"
+            name: "galleries"
+            widget: "list"
+            summary: "{{fields.year}} - {{fields.title}}"
+            fields:
+              - {label: "Jaar", name: "year", widget: "string", hint: "Bijv: 2025"}
+              - {label: "Titel", name: "title", widget: "string", default: "Editie 2025"}
+              - {label: "Beschrijving", name: "description", widget: "text", hint: "Korte omschrijving van dit jaar"}
+              - {label: "Thumbnail Afbeelding", name: "thumbnail", widget: "image", hint: "Hoofdafbeelding voor dit jaar"}
+              - {label: "Aantal Foto's", name: "photoCount", widget: "number", default: 0, min: 0}
+              - {label: "Aantal Video's", name: "videoCount", widget: "number", default: 0, min: 0}
+              - label: "Foto's"
+                name: "photos"
+                widget: "list"
+                required: false
+                summary: "{{fields.caption}}"
+                fields:
+                  - {label: "Foto", name: "image", widget: "image"}
+                  - {label: "Bijschrift", name: "caption", widget: "string", required: false}
+                  - {label: "Datum", name: "date", widget: "datetime", required: false, date_format: "DD-MM-YYYY", time_format: false}
+              - label: "Video's"
+                name: "videos"
+                widget: "list"
+                required: false
+                summary: "{{fields.title}}"
+                fields:
+                  - {label: "Titel", name: "title", widget: "string"}
+                  - {label: "YouTube URL", name: "youtubeUrl", widget: "string", hint: "Bijv: https://www.youtube.com/watch?v=..."}
+                  - {label: "Thumbnail (optioneel)", name: "thumbnail", widget: "image", required: false}
+                  - {label: "Beschrijving", name: "description", widget: "text", required: false}
+
+  # Header
+  - name: "header"
+    label: "Header"
+    files:
+      - label: "Header Instellingen"
+        name: "header"
+        file: "src/content/settings/header.json"
+        fields:
+          - {label: "Logo (Gekleurd)", name: "logo", widget: "image"}
+          - {label: "Logo Gekleurd Hoogte (px)", name: "logoHeight", widget: "number", default: 80}
+          - {label: "Logo (Wit)", name: "logoWhite", widget: "image"}
+          - {label: "Logo Wit Hoogte (px)", name: "logoWhiteHeight", widget: "number", default: 80}
+          - {label: "Logo Alt Tekst", name: "logoAlt", widget: "string", default: "Veerse Scheepstuig"}
+          - label: "Navigatie Menu"
+            name: "navigation"
+            widget: "list"
+            fields:
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Link", name: "link", widget: "string"}
+          - {label: "CTA Button Tekst", name: "ctaText", widget: "string", default: "Contact"}
+          - {label: "CTA Button Link", name: "ctaLink", widget: "string", default: "/contact"}
+          - label: "CTA Button Kleur"
+            name: "ctaColor"
+            widget: "select"
+            default: "primary"
+            options:
+              - {label: "Primary (Blauw)", value: "primary"}
+              - {label: "Secondary (Donkerblauw)", value: "secondary"}
+
+  # Footer
+  - name: "footer"
+    label: "Footer"
+    files:
+      - label: "Footer Instellingen"
+        name: "footer"
+        file: "src/content/settings/footer.json"
+        fields:
+          - {label: "Logo Wit", name: "logoWhite", widget: "image"}
+          - {label: "About Tekst", name: "aboutText", widget: "text"}
+          - label: "Contact Informatie"
+            name: "contact"
+            widget: "object"
+            fields:
+              - {label: "Email", name: "email", widget: "string"}
+              - {label: "Telefoon", name: "phone", widget: "string"}
+              - {label: "Adres", name: "address", widget: "string"}
+              - {label: "Stad", name: "city", widget: "string"}
+          - label: "Handige Links"
+            name: "usefulLinks"
+            widget: "list"
+            fields:
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Link", name: "link", widget: "string"}
+          - label: "Informatie Links"
+            name: "infoLinks"
+            widget: "list"
+            fields:
+              - {label: "Label", name: "label", widget: "string"}
+              - {label: "Link", name: "link", widget: "string"}
+          - {label: "Footer Afbeelding", name: "image", widget: "image"}
+          - {label: "Footer Afbeelding Alt", name: "imageAlt", widget: "string", default: "Veerse Scheepstuig"}
+          - {label: "Copyright Tekst", name: "copyright", widget: "string", default: "Copyright © 2025 Veerse Scheepstuig"}
+          - {label: "Website Door Tekst", name: "madeBy", widget: "string", default: "Website gemaakt door:"}
+          - {label: "Website Door Link", name: "madeByLink", widget: "string", default: "https://zee-zicht.nl"}
+          - {label: "Website Door Naam", name: "madeByName", widget: "string", default: "Zee-Zicht Media"}
