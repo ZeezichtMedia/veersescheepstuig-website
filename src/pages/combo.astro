@@ -108,7 +108,7 @@ if (!data.hero) console.error("HERO MISSING!");
             {data.members.map((member: any) => (
               <div class="bg-white p-6 rounded-xl shadow-lg text-center">
                 {(member.image || member.imageUrl) && (
-                  <div class="mb-4 overflow-hidden rounded-lg aspect-square">
+                  <div class="mb-4 overflow-hidden rounded-lg aspect-[3/4]">
                     <img
                       src={getImageUrl(
                         typeof member.image === "string" ? null : member.image,
@@ -116,7 +116,7 @@ if (!data.hero) console.error("HERO MISSING!");
                           ? member.image
                           : member.imageUrl,
                         {
-                          width: 600,
+                          width: 450,
                           height: 600,
                           crop: "fill",
                           quality: "auto",
@@ -124,7 +124,7 @@ if (!data.hero) console.error("HERO MISSING!");
                         },
                       )}
                       alt={member.name}
-                      class="w-full h-full object-cover"
+                      class="w-full h-full object-cover object-top"
                       loading="lazy"
                     />
                   </div>
