@@ -18,21 +18,21 @@ instruments:
     description: "Fundeert het geluid met diepe bastonen"
 
 members:
-  - name: "Gitarist 1"
-    instrument: "Gitaar"
-    image: "/images/placeholder-musician.jpg"
-  - name: "Gitarist 2"
-    instrument: "Gitaar"
-    image: "/images/placeholder-musician.jpg"
-  - name: "Bassist"
+  - name: "Gerard Kramer"
+    instrument: "Gitaar en Banjo"
+    image: "/images/Gerard Kramer Gitaar en Banjo.webp"
+  - name: "Johan Brakeboer"
     instrument: "Contrabas"
-    image: "/images/placeholder-musician.jpg"
-  - name: "Accordeonist"
+    image: "/images/Johan Brakeboer Contrabas.webp"
+  - name: "John Brinkhaus"
     instrument: "Accordeon"
-    image: "/images/placeholder-musician.jpg"
-  - name: "Violist"
+    image: "/images/John Brinkhaus Accordeon.webp"
+  - name: "Kevin van Blerkum"
+    instrument: "Accordeon"
+    image: "/images/Kevin van Blerkum Accordeon.webp"
+  - name: "Renée van Brakel"
     instrument: "Viool"
-    image: "/images/placeholder-musician.jpg"
+    image: "/images/Renée van Brakel Viool.webp"
 
 rehearsalInfo: |
   Het combo repeteert iedere woensdag mee met het koor. Af en toe worden de puntjes op de i gezet met een extra repetitie.
