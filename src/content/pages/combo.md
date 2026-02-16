@@ -20,19 +20,19 @@ instruments:
 members:
   - name: "Gerard Kramer"
     instrument: "Gitaar en Banjo"
-    image: "/images/Gerard Kramer Gitaar en Banjo.webp"
+    image: "/images/gerard-kramer.webp"
   - name: "Johan Brakeboer"
     instrument: "Contrabas"
-    image: "/images/Johan Brakeboer Contrabas.webp"
+    image: "/images/johan-brakeboer.webp"
   - name: "John Brinkhaus"
     instrument: "Accordeon"
-    image: "/images/John Brinkhaus Accordeon.webp"
+    image: "/images/john-brinkhaus.webp"
   - name: "Kevin van Blerkum"
     instrument: "Accordeon"
-    image: "/images/Kevin van Blerkum Accordeon.webp"
+    image: "/images/kevin-van-blerkum.webp"
   - name: "Renée van Brakel"
     instrument: "Viool"
-    image: "/images/Renée van Brakel Viool.webp"
+    image: "/images/renee-van-brakel.webp"
 
 rehearsalInfo: |
   Het combo repeteert iedere woensdag mee met het koor. Af en toe worden de puntjes op de i gezet met een extra repetitie.
