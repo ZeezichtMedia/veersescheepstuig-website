@@ -2,10 +2,7 @@
 title: "Het Combo"
 heroImage: "/images/concerten-header.webp"
 numberOfMusicians: 5
-intro: |
-  Het Veerse Scheepstuig heeft sinds de oprichting een combo dat in de huidige vorm bestaat uit **5 vaste enthousiaste muzikanten**. Zij begeleiden de zangers bij bijna alle nummers en vormen de muzikale ruggengraat van ons koor.
-  
-  Het combo is bij alle optredens en uitvoeringen van het koor natuurlijk gewoon aanwezig. Er zit slechts af en toe een a capella nummer tussen door (d.w.z. alleen zang).
+intro: "" 
 
 instruments:
   - name: "Gitaar"
@@ -39,3 +36,7 @@ rehearsalInfo: |
   
   **Repetities:** Elke woensdag 19:45 - 21:45 uur
 ---
+
+Het Veerse Scheepstuig heeft sinds de oprichting een combo dat in de huidige vorm bestaat uit **5 vaste enthousiaste muzikanten**. Zij begeleiden de zangers bij bijna alle nummers en vormen de muzikale ruggengraat van ons koor.
+
+Het combo is bij alle optredens en uitvoeringen van het koor natuurlijk gewoon aanwezig. Er zit slechts af en toe een a capella nummer tussen door (d.w.z. alleen zang).

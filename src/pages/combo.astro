@@ -7,6 +7,7 @@ import { getImageUrl } from "../lib/cloudinary";
 
 // Load content from CMS
 const comboData = await getEntry("pages", "combo");
+const { Content } = await comboData.render();
 
 interface Instrument {
   name: string;
@@ -88,11 +89,10 @@ if (!data.hero) console.error("HERO MISSING!");
     <div class="max-w-4xl mx-auto">
       <SectionHeader title="Vijf enthousiaste muzikanten" align="left" />
 
-      <div class="prose prose-lg max-w-none">
-        <div
-          set:html={data.intro}
-          class="text-xl text-gray-700 leading-relaxed mb-6"
-        />
+      <div
+        class="prose prose-lg max-w-none text-xl text-gray-700 leading-relaxed mb-6"
+      >
+        <Content />
       </div>
     </div>
   </Section>
