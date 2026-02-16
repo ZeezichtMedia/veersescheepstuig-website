@@ -13,12 +13,20 @@ interface Instrument {
   description: string;
 }
 
+interface Member {
+  name: string;
+  instrument: string;
+  image: string;
+  imageUrl?: string;
+}
+
 interface ComboFrontmatter {
   title: string;
   heroImage: string;
   numberOfMusicians: number;
   intro: string;
   instruments: Instrument[];
+  members?: Member[];
   rehearsalInfo: string;
 }
 
@@ -32,7 +40,7 @@ const data = {
     image: undefined, // Explicitly undefined to satisfy getImageUrl signature
   },
   intro: frontmatter?.intro || "",
-  members: [], // Markdown currently doesn't have specific members w/ images, only instruments
+  members: frontmatter?.members || [],
   instruments: frontmatter?.instruments || [],
 };
 
