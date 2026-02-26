@@ -1,0 +1,138 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+---
+
+<BaseLayout
+  title="Geschiedenis - Het Veerse Scheepstuig"
+  description="De geschiedenis van Het Veerse Scheepstuig vanaf de oprichting in 1999 tot nu. Van shanties tot een breed scala aan folkmuziek."
+>
+  <!-- Hero Section with Image -->
+  <section
+    class="relative h-[60vh] flex items-center justify-center overflow-hidden"
+  >
+    <img
+      src="/images/concerten-header.webp"
+      alt="Het Veerse Scheepstuig"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"
+    >
+    </div>
+
+    <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+      <h1
+        class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-2xl"
+      >
+        Onze Geschiedenis
+      </h1>
+      <p class="text-xl md:text-2xl text-white/95 drop-shadow-lg">
+        Van 1999 tot nu: een reis door maritieme muziek
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <Section id="content" padding="large">
+    <div class="max-w-4xl mx-auto">
+      <SectionHeader title="Stukje geschiedenis" align="left" />
+
+      <div class="prose prose-lg max-w-none">
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          De geschiedenis van Het Veerse Scheepstuig is die van muzikanten en
+          hun muziek. Van shanties en folksongs tot het herontdekken van oude én
+          het verkennen van nieuwe maritieme melodieën. Het gaat om ontmoetingen
+          met nieuwe mensen, het bezoeken van onbekende plekken, en vooral om
+          muzikale groei.
+        </p>
+
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          Sinds onze oprichting hebben we een lange reis afgelegd: van een
+          fascinatie voor hedendaagse zeemansliederen via traditionele maritieme
+          folk — waaronder shanties — naar een breed scala aan folkmuziek.
+        </p>
+
+        <h3 class="text-3xl font-bold text-gray-900 mt-12 mb-6">
+          Ons vierstemmig koor
+        </h3>
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          Ons vierstemmig koor is goed op elkaar afgestemd, zowel vocaal als
+          instrumentaal. Met een rijk akoestisch instrumentarium, eigen
+          composities en arrangementen brengen we een levendig en sfeervol
+          repertoire in diverse talen: Engels, Frans, Russisch, Spaans en
+          Zweeds.
+        </p>
+
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          Door de jaren heen hebben we een eigen, herkenbare stijl ontwikkeld
+          die we met trots presenteren op podia in binnen- en buitenland én op
+          onze vier Cd's.
+        </p>
+
+        <h3 class="text-3xl font-bold text-gray-900 mt-12 mb-6">
+          De oprichting in 1999
+        </h3>
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          In 1999 besloten twee leden van de kaartclub spontaan een shantykoor
+          op te richten. Ze kregen al snel bijval van andere stadsgenoten. Een
+          net gearriveerde Russische dirigente nam enthousiast de muzikale
+          leiding op zich, met de ambitie om een meerstemmig "goed" koor op te
+          bouwen.
+        </p>
+
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          Zo startte het koor met vier stemgroepen. Een groep muzikanten
+          completeerde het geheel. De naam was snel gevonden: Het Veerse
+          Scheepstuig — een naam met een knipoog en dubbele betekenis.
+        </p>
+
+        <h3 class="text-3xl font-bold text-gray-900 mt-12 mb-6">
+          Groei en ontwikkeling
+        </h3>
+        <p class="text-xl text-gray-700 leading-relaxed mb-6">
+          In de jaren daarna groeide het koor uit tot een gezelschap van veertig
+          leden, met een repertoire van ruim honderd shanty's en
+          zeemansliederen. Zangers uit heel Zeeland vonden hun plek in de groep.
+          Het Veerse Scheepstuig heeft al verschillende dirigenten gehad.
+        </p>
+
+        <div class="bg-primary-50 p-8 rounded-xl my-8">
+          <p class="text-2xl font-bold text-primary-700 mb-2">Sinds 2024</p>
+          <p class="text-xl text-gray-700">
+            Staat het koor onder de muzikale leiding van dirigent <a
+              href="/dirigent"
+              class="text-primary-600 hover:text-primary-700 underline"
+              >Moritz Benschop</a
+            >
+          </p>
+        </div>
+
+        <p class="text-xl text-gray-700 leading-relaxed">
+          Via onze nieuwsbrief, website en op Facebook houden we leden en
+          belangstellenden op de hoogte van ons reilen en zeilen.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- CTA Section -->
+  <Section background="gray" padding="large">
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Wilt u meer weten?
+      </h2>
+      <p class="text-xl text-gray-700 mb-8">
+        Neem contact met ons op of kom eens langs bij een repetitie!
+      </p>
+      <a
+        href="/contact"
+        class="inline-block bg-primary hover:bg-primary-600 text-white font-bold px-10 py-5 rounded-xl text-lg transition-all transform hover:scale-105 shadow-lg"
+      >
+        Neem contact op
+      </a>
+    </div>
+  </Section>
+</BaseLayout>

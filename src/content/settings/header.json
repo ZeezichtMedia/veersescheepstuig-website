@@ -41,11 +41,25 @@
     },
     {
       "label": "Repertoire",
-      "link": "/repertoire"
+      "link": "/repertoire",
+      "submenu": [
+        {
+          "label": "Repertoire",
+          "link": "/repertoire"
+        },
+        {
+          "label": "Onze Muziek",
+          "link": "/onze-muziek"
+        }
+      ]
     },
     {
       "label": "Contact",
       "link": "/contact"
+    },
+    {
+      "label": "Ledenportaal",
+      "link": "/ledenportaal"
     }
   ],
   "ctaText": "Boek ons",

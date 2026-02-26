@@ -2,59 +2,50 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import SectionHeader from '../components/SectionHeader.astro';
+import { sanityClient } from '../sanity/client';
+import type { SanityConcert } from '../sanity/client';
 
-// Hardcoded concerts for now - will be moved to CMS
-const concerts = [
-  {
-    date: "2025-07-26",
-    dayOfWeek: "Zaterdag",
-    title: "Zomermarkt",
-    location: "Veerweg Kamperland",
-    performances: [
-      { time: "14:00 - 14:35" },
-      { time: "15:30 - 16:05" }
-    ]
-  },
-  {
-    date: "2025-07-30",
-    dayOfWeek: "Woensdag",
-    title: "Braderie",
-    location: "Valkenburgstraat 3, Meliskerke",
-    performances: [
-      { time: "15:00 - 15:35" },
-      { time: "15:50 - 16:25" }
-    ]
-  },
-  {
-    date: "2025-08-07",
-    dayOfWeek: "Donderdag",
-    title: "Kerkje Zoutelande",
-    location: "Willibrordusplein 3",
-    performances: [
-      { time: "19:15 - 19:40" },
-      { time: "19:55 - 20:30" }
-    ]
-  },
-  {
-    date: "2025-08-20",
-    dayOfWeek: "Woensdag",
-    title: "Polderhuis",
-    location: "Zuidstraat 154-156, Westkapelle",
-    performances: [
-      { time: "14:15 - 15:00" },
-      { time: "15:30 - 16:15" }
-    ]
+// Fetch all concerts from Sanity and sort by date 
+const concerts: SanityConcert[] = await sanityClient.fetch(`
+  *[_type == "concert"] | order(date desc) {
+    _id,
+    title,
+    date,
+    time,
+    location,
+    info
   }
-];
+`);
+
+// Map to match the previous template structure
+const sortedConcerts = concerts.map(concert => ({
+  ...concert,
+  data: {
+    title: concert.title,
+    date: new Date(concert.date),
+    time: concert.time,
+    location: concert.location,
+    info: concert.info
+  }
+}));
 
 // Format date for display
-function formatDate(dateStr: string, dayOfWeek: string) {
-  const date = new Date(dateStr);
+function formatDate(date: Date) {
   const day = date.getDate();
   const months = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
   const month = months[date.getMonth()];
   const year = date.getFullYear();
-  return `${dayOfWeek} ${day} ${month} ${year}`;
+  return `${day} ${month} ${year}`;
+}
+
+function getDayOfWeek(date: Date) {
+  const days = ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'];
+  return days[date.getDay()];
+}
+
+function getMonthAbbr(date: Date) {
+  const months = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
+  return months[date.getMonth()];
 }
 ---
 
@@ -94,71 +85,87 @@ function formatDate(dateStr: string, dayOfWeek: string) {
       />
       
       <div class="mt-12">
-        {concerts.map((concert, index) => (
-          <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 mb-12" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);">
-            <div class="flex flex-col md:flex-row">
-              <!-- Date Badge -->
-              <div class="bg-gradient-to-br from-primary to-primary-700 text-white p-8 md:w-64 flex flex-col items-center justify-center text-center">
-                <div class="text-sm font-medium uppercase tracking-wide opacity-90 mb-2">
-                  {concert.dayOfWeek}
-                </div>
-                <div class="text-5xl font-bold mb-2">
-                  {new Date(concert.date).getDate()}
-                </div>
-                <div class="text-xl font-medium">
-                  {['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'][new Date(concert.date).getMonth()]} {new Date(concert.date).getFullYear()}
-                </div>
-              </div>
-              
-              <!-- Concert Details -->
-              <div class="flex-1 p-8">
-                <!-- Full Date Display -->
-                <div class="flex items-center gap-2 text-primary font-semibold mb-3">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                  </svg>
-                  <span class="text-lg">
-                    {formatDate(concert.date, concert.dayOfWeek)}
-                  </span>
+        {sortedConcerts.map((concert) => {
+          const { title, date, location, time, info } = concert.data;
+          
+          return (
+            <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 mb-12" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);">
+              <div class="flex flex-col md:flex-row">
+                <!-- Date Badge -->
+                <div class="bg-gradient-to-br from-primary to-primary-700 text-white p-8 md:w-64 flex flex-col items-center justify-center text-center">
+                  <div class="text-sm font-medium uppercase tracking-wide opacity-90 mb-2">
+                    {getDayOfWeek(date)}
+                  </div>
+                  <div class="text-5xl font-bold mb-2">
+                    {date.getDate()}
+                  </div>
+                  <div class="text-xl font-medium">
+                    {getMonthAbbr(date)} {date.getFullYear()}
+                  </div>
                 </div>
                 
-                <h3 class="text-3xl font-bold text-gray-900 mb-3">
-                  {concert.title}
-                </h3>
-                
-                <div class="flex items-start gap-2 text-gray-600 mb-6">
-                  <svg class="w-5 h-5 mt-1 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  </svg>
-                  <span class="text-lg">{concert.location}</span>
-                </div>
-                
-                <!-- Performance Times -->
-                <div class="space-y-3 mt-6">
-                  {concert.performances.map((perf, perfIndex) => (
-                    <div class="flex flex-col sm:flex-row sm:items-center gap-3 bg-gray-50 rounded-lg p-4">
-                      <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
-                          <span class="text-primary font-bold">{perfIndex + 1}</span>
-                        </div>
-                        <div>
-                          <div class="text-sm text-gray-500 font-medium">{perfIndex + 1}e optreden</div>
-                          <div class="flex items-center gap-2 text-gray-900 font-semibold">
-                            <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            {perf.time} uur
+                <!-- Concert Details -->
+                <div class="flex-1 p-8">
+                  <!-- Full Date Display -->
+                  <div class="flex items-center gap-2 text-primary font-semibold mb-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="text-lg">
+                      {getDayOfWeek(date)} {formatDate(date)}
+                    </span>
+                  </div>
+                  
+                  <h3 class="text-3xl font-bold text-gray-900 mb-3">
+                    {title}
+                  </h3>
+                  
+                  <div class="flex items-start gap-2 text-gray-600 mb-6">
+                    <svg class="w-5 h-5 mt-1 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span class="text-lg">{location}</span>
+                  </div>
+                  
+                  <!-- Performance Times / Info -->
+                  <div class="space-y-3 mt-6">
+                      {time && (
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-3 bg-gray-50 rounded-lg p-4">
+                          <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                               <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                              </svg>
+                            </div>
+                            <div>
+                              <div class="text-sm text-gray-500 font-medium">Tijd</div>
+                              <div class="flex items-center gap-2 text-gray-900 font-semibold">
+                                {time}
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  ))}
+                      )}
+                      
+                      {info && (
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-3 bg-primary-50 rounded-lg p-4 border border-primary-100">
+                          <div class="flex items-center gap-3">
+                             <div>
+                              <div class="text-sm text-primary-700 font-medium">Extra Informatie</div>
+                              <div class="flex items-center gap-2 text-gray-900">
+                                {info}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </Section>

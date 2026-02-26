@@ -287,6 +287,7 @@ const navigation = headerData.navigation || [];
     submenuToggles.forEach(toggle => {
       toggle.addEventListener('click', () => {
         const submenuId = toggle.getAttribute('data-submenu');
+        if (!submenuId) return;
         const submenu = document.getElementById(submenuId);
         const arrow = toggle.querySelector('.submenu-arrow');
         

@@ -1,0 +1,77 @@
+/* empty css                                 */
+import { c as createComponent, b as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_XcAptiy-.mjs';
+import 'kleur/colors';
+import { $ as $$BaseLayout } from '../chunks/BaseLayout_VMbBn6rJ.mjs';
+import { $ as $$Section, a as $$SectionHeader } from '../chunks/SectionHeader_DghLiZBf.mjs';
+import { s as sanityClient } from '../chunks/client_cpWjcIkh.mjs';
+export { renderers } from '../renderers.mjs';
+
+const $$Concerten = createComponent(async ($$result, $$props, $$slots) => {
+  const concerts = await sanityClient.fetch(`
+  *[_type == "concert"] | order(date desc) {
+    _id,
+    title,
+    date,
+    time,
+    location,
+    info
+  }
+`);
+  const sortedConcerts = concerts.map((concert) => ({
+    ...concert,
+    data: {
+      title: concert.title,
+      date: new Date(concert.date),
+      time: concert.time,
+      location: concert.location,
+      info: concert.info
+    }
+  }));
+  function formatDate(date) {
+    const day = date.getDate();
+    const months = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+  }
+  function getDayOfWeek(date) {
+    const days = ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"];
+    return days[date.getDay()];
+  }
+  function getMonthAbbr(date) {
+    const months = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+    return months[date.getMonth()];
+  }
+  return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, { "title": "Concerten - Het Veerse Scheepstuig", "description": "Bekijk onze aankomende optredens en concerten. Kom luisteren naar Het Veerse Scheepstuig op diverse locaties in Zeeland." }, { "default": async ($$result2) => renderTemplate`  ${maybeRenderHead()}<section class="relative h-[60vh] flex items-center justify-center overflow-hidden"> <img src="/images/concerten-header.webp" alt="Concerten Het Veerse Scheepstuig" class="absolute inset-0 w-full h-full object-cover" loading="eager"> <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div> <div class="relative z-10 text-center px-4 max-w-5xl mx-auto"> <div class="inline-block mb-6 px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"> <span class="text-white/90 text-sm md:text-base font-medium tracking-wide">🎵 Aankomende Optredens</span> </div> <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-2xl">
+Concerten
+</h1> <p class="text-xl md:text-2xl text-white/95 drop-shadow-lg">
+Kom luisteren naar ons koor op diverse locaties
+</p> </div> </section>  ${renderComponent($$result2, "Section", $$Section, { "id": "content", "padding": "large" }, { "default": async ($$result3) => renderTemplate` <div class="max-w-5xl mx-auto"> ${renderComponent($$result3, "SectionHeader", $$SectionHeader, { "title": "Aankomende optredens", "subtitle": "Noteer de data en kom luisteren!" })} <div class="mt-12"> ${sortedConcerts.map((concert) => {
+    const { title, date, location, time, info } = concert.data;
+    return renderTemplate`<div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 mb-12" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);"> <div class="flex flex-col md:flex-row"> <!-- Date Badge --> <div class="bg-gradient-to-br from-primary to-primary-700 text-white p-8 md:w-64 flex flex-col items-center justify-center text-center"> <div class="text-sm font-medium uppercase tracking-wide opacity-90 mb-2"> ${getDayOfWeek(date)} </div> <div class="text-5xl font-bold mb-2"> ${date.getDate()} </div> <div class="text-xl font-medium"> ${getMonthAbbr(date)} ${date.getFullYear()} </div> </div> <!-- Concert Details --> <div class="flex-1 p-8"> <!-- Full Date Display --> <div class="flex items-center gap-2 text-primary font-semibold mb-3"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path> </svg> <span class="text-lg"> ${getDayOfWeek(date)} ${formatDate(date)} </span> </div> <h3 class="text-3xl font-bold text-gray-900 mb-3"> ${title} </h3> <div class="flex items-start gap-2 text-gray-600 mb-6"> <svg class="w-5 h-5 mt-1 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path> </svg> <span class="text-lg">${location}</span> </div> <!-- Performance Times / Info --> <div class="space-y-3 mt-6"> ${time && renderTemplate`<div class="flex flex-col sm:flex-row sm:items-center gap-3 bg-gray-50 rounded-lg p-4"> <div class="flex items-center gap-3"> <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0"> <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path> </svg> </div> <div> <div class="text-sm text-gray-500 font-medium">Tijd</div> <div class="flex items-center gap-2 text-gray-900 font-semibold"> ${time} </div> </div> </div> </div>`} ${info && renderTemplate`<div class="flex flex-col sm:flex-row sm:items-center gap-3 bg-primary-50 rounded-lg p-4 border border-primary-100"> <div class="flex items-center gap-3"> <div> <div class="text-sm text-primary-700 font-medium">Extra Informatie</div> <div class="flex items-center gap-2 text-gray-900"> ${info} </div> </div> </div> </div>`} </div> </div> </div> </div>`;
+  })} </div> </div> ` })}  ${renderComponent($$result2, "Section", $$Section, { "background": "gradient", "padding": "large" }, { "default": async ($$result3) => renderTemplate` <div class="max-w-4xl mx-auto text-center"> <div class="bg-white p-8 md:p-12 rounded-2xl border border-gray-200" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);"> <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6"> <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path> </svg> </div> <h3 class="text-2xl font-bold text-gray-900 mb-4">
+Gratis toegang
+</h3> <p class="text-lg text-gray-700 leading-relaxed">
+Al onze optredens zijn gratis toegankelijk. Kom gerust langs en geniet van maritieme muziek in een sfeervolle omgeving!
+</p> </div> </div> ` })}  ${renderComponent($$result2, "Section", $$Section, { "padding": "large" }, { "default": async ($$result3) => renderTemplate` <div class="relative overflow-hidden bg-gradient-to-br from-primary-600 to-secondary text-white rounded-3xl p-12 md:p-16 shadow-2xl"> <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div> <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"></div> <div class="relative text-center max-w-3xl mx-auto"> <h2 class="text-4xl md:text-5xl font-bold mb-6">
+Boek ons voor uw evenement
+</h2> <p class="text-xl text-white/90 mb-8 leading-relaxed">
+Op zoek naar sfeervolle maritieme muziek voor uw evenement? Neem contact met ons op voor beschikbaarheid en mogelijkheden.
+</p> <a href="/contact" class="inline-block bg-white text-primary hover:bg-gray-100 font-bold px-12 py-5 rounded-2xl text-lg transition-all transform hover:scale-105 shadow-xl">
+Neem contact op
+<svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path> </svg> </a> </div> </div> ` })} ` })}`;
+}, "C:/Users/joria/CascadeProjects/veerse_scheepstuig_v2/src/pages/concerten.astro", void 0);
+
+const $$file = "C:/Users/joria/CascadeProjects/veerse_scheepstuig_v2/src/pages/concerten.astro";
+const $$url = "/concerten";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Concerten,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

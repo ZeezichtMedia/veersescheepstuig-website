@@ -3,73 +3,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 
-// Gallery data - will be moved to CMS
-const galleries = [
-  {
-    year: "2025",
-    title: "Editie 2025",
-    description: "Onze meest recente optredens en momenten",
-    thumbnail: "/images/bestuur-header.webp",
-    photoCount: 24,
-    videoCount: 2
-  },
-  {
-    year: "2024",
-    title: "Editie 2024",
-    description: "Hoogtepunten van het afgelopen jaar",
-    thumbnail: "/images/concerten-header.webp",
-    photoCount: 45,
-    videoCount: 3
-  },
-  {
-    year: "2023",
-    title: "Editie 2023",
-    description: "Memorabele momenten uit 2023",
-    thumbnail: "/images/contact-header.webp",
-    photoCount: 38,
-    videoCount: 1
-  },
-  {
-    year: "2022",
-    title: "Editie 2022",
-    description: "Terugblik op 2022",
-    thumbnail: "/images/dirigent-header.webp",
-    photoCount: 32,
-    videoCount: 2
-  },
-  {
-    year: "2021",
-    title: "Editie 2021",
-    description: "Bijzondere momenten uit 2021",
-    thumbnail: "/images/bestuur-header.webp",
-    photoCount: 28,
-    videoCount: 1
-  },
-  {
-    year: "2020",
-    title: "Editie 2020",
-    description: "Herinneringen aan 2020",
-    thumbnail: "/images/concerten-header.webp",
-    photoCount: 15,
-    videoCount: 0
-  },
-  {
-    year: "2019",
-    title: "Editie 2019",
-    description: "Mooie momenten uit 2019",
-    thumbnail: "/images/contact-header.webp",
-    photoCount: 42,
-    videoCount: 3
-  },
-  {
-    year: "2018",
-    title: "Editie 2018",
-    description: "Terugblik op 2018",
-    thumbnail: "/images/dirigent-header.webp",
-    photoCount: 36,
-    videoCount: 2
+import { sanityClient } from '../sanity/client';
+import type { SanityGallery } from '../sanity/client';
+
+// Fetch all visible gallery items from Sanity
+const galleries: SanityGallery[] = await sanityClient.fetch(`
+  *[_type == "gallery" && draft != false] | order(date desc) {
+    _id,
+    draft,
+    title,
+    date,
+    description,
+    url,
+    "thumbnailUrl": thumbnail.asset->url
   }
-];
+`);
+
+const mappedGalleries = galleries.map(gallery => ({
+  ...gallery,
+  year: gallery.date ? gallery.date.substring(0, 4) : new Date().getFullYear().toString(),
+  thumbnail: gallery.thumbnailUrl || '/images/concerten-header.webp' // fallback image
+}));
 ---
 
 <BaseLayout 
@@ -108,9 +62,11 @@ const galleries = [
       />
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-        {galleries.map((gallery) => (
+        {mappedGalleries.map((gallery) => (
           <a 
-            href={`/galerij/${gallery.year}`}
+            href={gallery.url || '#'}
+            target={gallery.url ? "_blank" : undefined}
+            rel={gallery.url ? "noopener noreferrer" : undefined}
             class="group relative bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-2"
             style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);"
           >
@@ -125,23 +81,8 @@ const galleries = [
               <!-- Overlay on hover -->
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div class="absolute bottom-4 left-4 right-4 text-white">
-                  <div class="flex items-center gap-4 text-sm">
-                    {gallery.photoCount > 0 && (
-                      <div class="flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        <span>{gallery.photoCount} foto's</span>
-                      </div>
-                    )}
-                    {gallery.videoCount > 0 && (
-                      <div class="flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                        </svg>
-                        <span>{gallery.videoCount} video's</span>
-                      </div>
-                    )}
+                  <div class="flex items-center gap-4 text-sm font-semibold">
+                    Klik om naar het album of de video te gaan
                   </div>
                 </div>
               </div>
@@ -157,36 +98,20 @@ const galleries = [
               <h3 class="text-2xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
                 {gallery.title}
               </h3>
-              <p class="text-gray-600 mb-4">
-                {gallery.description}
-              </p>
-              
-              <!-- Stats -->
-              <div class="flex items-center gap-4 text-sm text-gray-500">
-                {gallery.photoCount > 0 && (
-                  <div class="flex items-center gap-1">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span>{gallery.photoCount}</span>
-                  </div>
-                )}
-                {gallery.videoCount > 0 && (
-                  <div class="flex items-center gap-1">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                    </svg>
-                    <span>{gallery.videoCount}</span>
-                  </div>
-                )}
-              </div>
+              {gallery.description && (
+                <p class="text-gray-600 mb-4 line-clamp-2">
+                  {gallery.description}
+                </p>
+              )}
               
               <!-- View Button -->
               <div class="mt-4 flex items-center text-primary font-semibold group-hover:gap-2 transition-all">
-                <span>Bekijk galerij</span>
-                <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
+                <span>{gallery.url ? 'Bekijk galerij' : 'Binnenkort beschikbaar'}</span>
+                {gallery.url && (
+                  <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                  </svg>
+                )}
               </div>
             </div>
           </a>

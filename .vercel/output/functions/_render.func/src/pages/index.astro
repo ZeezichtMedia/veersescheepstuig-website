@@ -1,0 +1,197 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VideoHero from "../components/VideoHero.astro";
+import Section from "../components/Section.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import USPCard from "../components/USPCard.astro";
+import { getEntry } from "astro:content";
+
+// Load content from CMS
+// Load content from CMS
+const homeData = await getEntry("pages", "home");
+
+interface Hero {
+  title: string;
+  subtitle: string;
+  videoUrl: string;
+  image: string;
+  ctaText: string;
+  ctaLink: string;
+}
+
+interface Intro {
+  title: string;
+  body: string;
+}
+
+interface USP {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface HomeData {
+  hero: Hero;
+  intro: Intro;
+  usps: USP[];
+}
+
+const frontmatter = (homeData?.data as unknown as HomeData) || {
+  hero: {
+    title: "Het Veerse Scheepstuig",
+    subtitle: "Shantykoor met passie voor maritieme muziek",
+    videoUrl: "",
+    image:
+      "https://res.cloudinary.com/dgf7hospk/image/upload/q_auto,f_auto,w_1920,c_limit,fl_progressive/veersescheepstuig/koor-foto_1762936244480.webp",
+    ctaText: "Boek ons voor een optreden",
+    ctaLink: "/contact",
+  },
+  intro: {
+    title: "Maritieme muziek met hart en ziel",
+    body: "Sinds 1999 brengt Het Veerse Scheepstuig maritieme muziek tot leven.",
+  },
+  usps: [],
+};
+---
+
+<BaseLayout
+  title="Het Veerse Scheepstuig - Shantykoor uit Veere"
+  description="Shantykoor Het Veerse Scheepstuig brengt maritieme muziek tot leven. Vierstemmig koor en combo met traditionele shanties en moderne folksongs."
+>
+  <!-- Hero Section -->
+  <VideoHero
+    title={frontmatter.hero.title}
+    subtitle={frontmatter.hero.subtitle}
+    videoSrc={frontmatter.hero.videoUrl}
+    posterSrc={frontmatter.hero.image}
+    ctaText={frontmatter.hero.ctaText}
+    ctaLink={frontmatter.hero.ctaLink}
+  />
+
+  <!-- Intro Section -->
+  <Section id="content" padding="large">
+    <div class="text-center max-w-4xl mx-auto">
+      <!-- Small decorative line -->
+      <div class="flex items-center justify-center mb-6">
+        <div class="h-1 w-12 bg-primary rounded-full"></div>
+        <svg
+          class="w-6 h-6 mx-4 text-primary"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+          ></path>
+        </svg>
+        <div class="h-1 w-12 bg-primary rounded-full"></div>
+      </div>
+
+      <h2
+        class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight"
+      >
+        {frontmatter.intro.title}
+      </h2>
+      <p class="text-xl text-gray-700 leading-relaxed">
+        {frontmatter.intro.body}
+      </p>
+
+      <!-- Stats or highlights -->
+      <div class="grid grid-cols-3 gap-8 mt-12 pt-12 border-t border-gray-200">
+        <div>
+          <div class="text-4xl font-bold text-primary mb-2">25+</div>
+          <div class="text-sm text-gray-600 uppercase tracking-wide">
+            Jaren ervaring
+          </div>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-primary mb-2">40+</div>
+          <div class="text-sm text-gray-600 uppercase tracking-wide">
+            Koorleden
+          </div>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-primary mb-2">4</div>
+          <div class="text-sm text-gray-600 uppercase tracking-wide">
+            CD's uitgebracht
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- USP Section -->
+  <Section background="gradient" padding="large">
+    <SectionHeader
+      title="Wat maakt ons bijzonder?"
+      subtitle="Ontdek Het Veerse Scheepstuig"
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+      {
+        frontmatter.usps.map((usp: any) => (
+          <div class="bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+            <USPCard
+              title={usp.name}
+              description={usp.description}
+              icon={usp.icon}
+              color="blue"
+            />
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- CTA Section -->
+  <Section padding="large">
+    <div
+      class="relative overflow-hidden bg-gradient-to-br from-primary-600 to-secondary text-white rounded-3xl p-12 md:p-16 shadow-2xl"
+    >
+      <!-- Decorative elements -->
+      <div
+        class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"
+      >
+      </div>
+      <div
+        class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"
+      >
+      </div>
+
+      <div class="relative text-center max-w-3xl mx-auto">
+        <div
+          class="inline-block mb-4 px-4 py-1 bg-white/20 backdrop-blur-sm rounded-full"
+        >
+          <span class="text-white/90 text-sm font-medium"
+            >🎵 Beschikbaar voor boekingen</span
+          >
+        </div>
+
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Boek Het Veerse Scheepstuig
+        </h2>
+        <p class="text-xl text-white/90 mb-8 leading-relaxed">
+          Op zoek naar een sfeervol optreden met maritieme muziek? Neem contact
+          met ons op voor beschikbaarheid en mogelijkheden.
+        </p>
+        <a
+          href="/contact"
+          class="inline-block bg-white text-secondary hover:bg-gray-100 font-bold px-12 py-5 rounded-2xl text-lg transition-all transform hover:scale-105 shadow-xl"
+        >
+          Neem contact op
+          <svg
+            class="inline-block ml-2 w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

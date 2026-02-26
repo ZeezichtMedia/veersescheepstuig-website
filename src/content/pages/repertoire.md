@@ -6,7 +6,7 @@ intro: |
   
   Die bemanningen waren Engelsen, Ieren, Welsh, Duitsers, Fransen, uit West-Indië, de Verenigde Staten en andere zeegaande landen, maar de muziek zelf is geïnspireerd door de oceanen die al deze plaatsen met elkaar verbinden en tweederde van onze kostbare planeet bestrijken.
   
-  We nemen dit allemaal als inspiratiebron voor onze muziek en geven er onze eigen draai aan met **gitaar, contrabas, accordeon en viool**.
+  We nemen dit allemaal als inspiratiebron voor onze muziek en geven er onze eigen draai aan met **gitaar, contrabas, accordeon en viool**. Uiteraard zingen wij daarnaast ook diverse nummers in het Nederlands.
 
 styles:
   - name: "Traditionele Shanties"
@@ -17,6 +17,7 @@ styles:
     description: "Hedendaagse liedjes met maritieme thema's en eigen composities."
 
 languages:
+  - language: "Nederlands"
   - language: "Engels"
   - language: "Frans"
   - language: "Russisch"

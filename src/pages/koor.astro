@@ -131,9 +131,105 @@ const data = (koorData?.data as unknown as KoorData) || {
           </p>
         </div>
 
-        <p class="text-xl text-gray-700 leading-relaxed">
+        <p class="text-xl text-gray-700 leading-relaxed mb-12">
           {data.geschiedenis.groei2}
         </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Singers by Part Section -->
+  <Section background="gray" padding="large">
+    <div class="max-w-6xl mx-auto">
+      <SectionHeader title="Onze Zangers" subtitle="Verdeeld per partij" />
+
+      <div class="prose prose-lg max-w-none text-center mb-12">
+        <p class="text-gray-700">
+          Bekijk hieronder onze koorleden, verdeeld over vier stemgroepen. De
+          foto's zijn gemaakt tijdens ons optreden in Wissenkerke.
+        </p>
+      </div>
+
+      <div class="space-y-16">
+        <!-- Tenoren 1 -->
+        <div>
+          <h3
+            class="text-3xl font-bold text-primary-700 mb-6 border-b-2 border-primary-200 pb-2"
+          >
+            Eerste Tenoren
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-4 rounded-xl shadow">
+              <div
+                class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center overflow-hidden"
+              >
+                <span class="text-gray-500 text-sm">Foto Wissekerke</span>
+              </div>
+              <p class="font-bold text-center">Namen eerste tenoren...</p>
+            </div>
+            <!-- Add more cards as needed -->
+          </div>
+        </div>
+
+        <!-- Tenoren 2 -->
+        <div>
+          <h3
+            class="text-3xl font-bold text-primary-700 mb-6 border-b-2 border-primary-200 pb-2"
+          >
+            Tweede Tenoren
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-4 rounded-xl shadow">
+              <div
+                class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center overflow-hidden"
+              >
+                <span class="text-gray-500 text-sm">Foto Wissekerke</span>
+              </div>
+              <p class="font-bold text-center">Namen tweede tenoren...</p>
+            </div>
+            <!-- Add more cards as needed -->
+          </div>
+        </div>
+
+        <!-- Baritons -->
+        <div>
+          <h3
+            class="text-3xl font-bold text-primary-700 mb-6 border-b-2 border-primary-200 pb-2"
+          >
+            Baritons
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-4 rounded-xl shadow">
+              <div
+                class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center overflow-hidden"
+              >
+                <span class="text-gray-500 text-sm">Foto Wissekerke</span>
+              </div>
+              <p class="font-bold text-center">Namen baritons...</p>
+            </div>
+            <!-- Add more cards as needed -->
+          </div>
+        </div>
+
+        <!-- Bassen -->
+        <div>
+          <h3
+            class="text-3xl font-bold text-primary-700 mb-6 border-b-2 border-primary-200 pb-2"
+          >
+            Bassen
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-4 rounded-xl shadow">
+              <div
+                class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center overflow-hidden"
+              >
+                <span class="text-gray-500 text-sm">Foto Wissekerke</span>
+              </div>
+              <p class="font-bold text-center">Namen bassen...</p>
+            </div>
+            <!-- Add more cards as needed -->
+          </div>
+        </div>
       </div>
     </div>
   </Section>
