@@ -33,3 +33,4 @@ info vanuit klant over website/
 # public/images/*.jpeg
 # public/images/HVS Kleding/
 # public/images/Dia*
+.vercel/
