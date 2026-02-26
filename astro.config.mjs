@@ -8,6 +8,6 @@ export default defineConfig({
   adapter: vercel(),
   integrations: [tailwind()],
   redirects: {
-    '/admin': 'https://veersescheepstuigcms.sanity.studio/'
+    '/admin': 'https://veersesveersescheepstuigcms.sanity.studio/'
   }
 });
