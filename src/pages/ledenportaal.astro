@@ -5,12 +5,66 @@ import SectionHeader from "../components/SectionHeader.astro";
 
 const heroImage = "/images/contact-header.webp";
 const heroTitle = "Ledenportaal";
-const heroSubtitle = "Oefenmateriaal en muziekfiles voor leden";
+const heroSubtitle = "Informatie, kleding en oefenmateriaal voor leden";
+
+const tenues = [
+    {
+        naam: "Zomertenue",
+        icon: "☀️",
+        items: [
+            "Gestreepte polo",
+            "Effen blauwe kiel",
+            "Beige broek",
+            "Donkerblauwe sokken",
+            "Zwarte schoenen",
+        ],
+    },
+    {
+        naam: "Wintertenue",
+        icon: "❄️",
+        items: [
+            "T-shirt (wit) met ronde hals",
+            "Gestreepte kiel",
+            "Donkerblauwe broek",
+            "Donkerblauwe sokken",
+            "Zwarte schoenen",
+        ],
+    },
+    {
+        naam: "Concerttenue",
+        icon: "🎵",
+        items: [
+            "Wit onderhemd (zonder mouw)",
+            "Wit overhemd met dasje (onder de kraag en knoopjes dicht)",
+            "Gestreept hesje",
+            "Donkerblauwe broek met bretels",
+            "Donkerblauwe sokken",
+            "Zwarte schoenen",
+            "Zwarte riem",
+        ],
+    },
+    {
+        naam: "Tropentenue",
+        icon: "🌴",
+        items: [
+            "Wit onderhemd (zonder mouw)",
+            "Wit shirt met korte mouw en veter",
+            "Blauwe broek",
+            "Donkerblauwe sokken",
+            "Zwarte schoenen",
+        ],
+    },
+    {
+        naam: "Begrafenis",
+        icon: "🕊️",
+        items: ["Wintertenue", "Rouwband (wordt uitgedeeld)", "Jack van HVS"],
+    },
+];
 ---
 
 <BaseLayout
     title="Ledenportaal - Het Veerse Scheepstuig"
-    description="Ledenportaal met oefenbestanden en bladmuziek voor de leden van Het Veerse Scheepstuig."
+    description="Ledenportaal met kleding, oefenbestanden en bladmuziek voor de leden van Het Veerse Scheepstuig."
 >
     <!-- Prevent indexing of member portal -->
     <meta name="robots" content="noindex, nofollow" slot="head" />
@@ -41,6 +95,40 @@ const heroSubtitle = "Oefenmateriaal en muziekfiles voor leden";
             </p>
         </div>
     </section>
+
+    <!-- Kledinglijst Section -->
+    <Section id="kledinglijst" padding="large">
+        <div class="max-w-6xl mx-auto">
+            <SectionHeader title="Kledinglijst" align="center" />
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
+            >
+                {
+                    tenues.map((tenue) => (
+                        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 hover:shadow-2xl transition-shadow duration-300 border border-gray-100">
+                            <div class="flex items-center gap-3 mb-5">
+                                <span class="text-3xl">{tenue.icon}</span>
+                                <h3 class="text-xl font-bold text-primary">
+                                    {tenue.naam}
+                                </h3>
+                            </div>
+                            <ul class="space-y-2">
+                                {tenue.items.map((item) => (
+                                    <li class="flex items-start gap-2 text-gray-700">
+                                        <span class="text-primary mt-1 text-sm">
+                                            ▸
+                                        </span>
+                                        <span>{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </Section>
 
     <!-- Muziekfiles / Finale section -->
     <Section id="muziekfiles" padding="large">
