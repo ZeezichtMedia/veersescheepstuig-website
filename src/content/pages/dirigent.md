@@ -1,13 +1,13 @@
 ---
 title: "Dirigent"
-heroImage: /images/dirigent-header.webp
+heroImage: /images/dirigent header.jpg
 name: "Moritz Benschop"
 nickname: "The Jumping Man"
 birthdate: "29 december 1958"
 birthplace: "Zutphen"
 bio:
   intro: |
-    Geboren op 29 december 1958 te Zutphen, is Moritz Benschop een man die je niet snel over het hoofd ziet—zeker niet als hij voor het koor staat. Met zijn energieke bewegingen en wapperende armen heeft hij de bijnaam **The Jumping Man** meer dan verdiend. Springend en zwaaiend leidt hij ons koor alsof hij zelf een muzieknoot is die uit de maat wil dansen. En geloof ons: dat werkt aanstekelijk.
+    Geboren op 29 december 1958 te Zutphen, is Moritz Benschop een man die je niet snel over het hoofd ziet—zeker niet als hij voor het koor staat. Met zijn energieke bewegingen en wapperende armen heeft hij de bijnaam <strong>The Jumping Man</strong> meer dan verdiend. Springend en zwaaiend leidt hij ons koor alsof hij zelf een muzieknoot is die uit de maat wil dansen. En geloof ons: dat werkt aanstekelijk.
     
     Moritz voelt feilloos de energie van het publiek aan en geeft die dubbel en dwars terug. Zijn flair is als een muzikale golf die iedereen meesleurt—van de eerste rij tot achterin de zaal. Zijn enthousiasme werkt als een turbo voor ons koor, het combo én het publiek. Want uiteindelijk draait het daar allemaal om: samen genieten van muziek.
   
