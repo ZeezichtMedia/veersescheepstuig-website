@@ -13,30 +13,34 @@
       "link": "/"
     },
     {
-      "label": "Geschiedenis",
-      "link": "/geschiedenis"
+      "label": "Wie zijn wij",
+      "link": "/koor"
     },
     {
-      "label": "Dirigent",
-      "link": "/dirigent"
+      "label": "Concerten",
+      "link": "/concerten"
     },
     {
-      "label": "Het Combo",
-      "link": "/combo"
+      "label": "Repertoire",
+      "link": "/repertoire"
     }
   ],
   "infoLinks": [
     {
-      "label": "Repertoire",
-      "link": "/repertoire"
+      "label": "Foto's & Video's",
+      "link": "/fotos-videos"
+    },
+    {
+      "label": "Bestuur",
+      "link": "/bestuur"
     },
     {
       "label": "Contact",
       "link": "/contact"
     },
     {
-      "label": "Nieuwsbrief",
-      "link": "/contact#nieuwsbrief"
+      "label": "Ledenportaal",
+      "link": "/ledenportaal"
     }
   ],
   "image": "/images/contact-header.webp",
