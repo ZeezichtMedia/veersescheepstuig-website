@@ -1,6 +1,6 @@
 ---
 title: "Het Combo"
-heroImage: "/images/concerten-header.webp"
+heroImage: "/images/combo_header.jpg"
 numberOfMusicians: 5
 intro: "" 
 
