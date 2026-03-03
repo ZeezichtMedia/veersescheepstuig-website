@@ -1,6 +1,6 @@
 ---
 title: "Foto's & Video's"
-heroImage: "/images/contact-header.webp"
+heroImage: "/images/Fotografie.png"
 intro: "Bekijk foto's en video's van onze optredens door de jaren heen. Herinneringen aan memorabele momenten van Het Veerse Scheepstuig."
 galleries:
   - year: "2025"
