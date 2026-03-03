@@ -7,7 +7,7 @@ import type { SanityConcert } from '../sanity/client';
 
 // Fetch all concerts from Sanity and sort by date 
 const concerts: SanityConcert[] = await sanityClient.fetch(`
-  *[_type == "concert"] | order(date desc) {
+  *[_type == "concert"] | order(date asc) {
     _id,
     title,
     date,
