@@ -54,6 +54,10 @@
       ]
     },
     {
+      "label": "Nieuwsbrieven",
+      "link": "/nieuwsbrieven"
+    },
+    {
       "label": "Contact",
       "link": "/contact"
     },
@@ -63,6 +67,6 @@
     }
   ],
   "ctaText": "Boek ons",
-  "ctaLink": "/contact",
+  "ctaLink": "/contact#boekingen",
   "ctaColor": "primary"
 }

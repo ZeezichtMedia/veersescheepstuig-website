@@ -23,6 +23,10 @@
     {
       "label": "Repertoire",
       "link": "/repertoire"
+    },
+    {
+      "label": "Nieuwsbrieven",
+      "link": "/nieuwsbrieven"
     }
   ],
   "infoLinks": [
