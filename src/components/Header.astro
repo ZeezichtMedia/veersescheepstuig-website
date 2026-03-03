@@ -12,9 +12,9 @@ const navigation = headerData.navigation || [];
 
 <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
+    <div class="flex items-center justify-between py-[10px]">
       <!-- Logo -->
-      <a href="/" class="flex items-center justify-center relative py-[10px]" style={`height: ${Math.max(headerData.logoHeight, headerData.logoWhiteHeight) + 20}px; min-width: 150px;`}>
+      <a href="/" class="flex items-center justify-center relative" style={`height: ${Math.max(headerData.logoHeight, headerData.logoWhiteHeight)}px; min-width: 150px;`}>
         <img 
           id="logo-white" 
           src={headerData.logoWhite} 
