@@ -16,11 +16,59 @@ interface SanityAnnouncement {
     opmerking?: string;
 }
 
+interface SanityMusicFile {
+    label?: string;
+    fileUrl?: string;
+    filename?: string;
+    extension?: string;
+    size?: number;
+}
+
+interface SanityMusicPiece {
+    _id: string;
+    title: string;
+    composer?: string;
+    category?: string;
+    language?: string;
+    files?: SanityMusicFile[];
+}
+
 const announcements: SanityAnnouncement[] = await sanityClient.fetch(`
   *[_type == "announcement"] | order(date desc) {
     _id, title, date, location, openbaar, tenue, zwartBoekje, programma, opmerking
   }
 `);
+
+const musicpieces: SanityMusicPiece[] = await sanityClient.fetch(`
+  *[_type == "musicpiece"] | order(title asc) {
+    _id,
+    title,
+    composer,
+    category,
+    language,
+    "files": files[]{
+      label,
+      "fileUrl": file.asset->url,
+      "filename": file.asset->originalFilename,
+      "extension": file.asset->extension,
+      "size": file.asset->size
+    }
+  }
+`);
+
+const categoryLabels: Record<string, string> = {
+    shanty: 'Shanty',
+    ballad: 'Sea ballad',
+    folk: 'Moderne folksong',
+    overig: 'Overig',
+};
+
+function formatFileSize(bytes?: number): string {
+    if (!bytes || bytes <= 0) return '';
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
 const heroImage = "/images/Ledenportaal_header.jpg";
 const heroTitle = "Ledenportaal";
@@ -300,24 +348,93 @@ const tenues = [
 
     <!-- Muziekfiles / Finale section -->
     <Section id="muziekfiles" padding="large">
-        <div class="max-w-4xl mx-auto">
-            <SectionHeader title="Muziekfiles (Finale)" align="center" />
+        <div class="max-w-5xl mx-auto">
+            <SectionHeader
+                title="Muziekfiles"
+                subtitle="Bladmuziek, Finale-bestanden en oefenmateriaal"
+                align="center"
+            />
 
-            <div
-                class="prose prose-lg prose-primary max-w-none text-gray-700 bg-white p-8 md:p-12 rounded-2xl shadow-xl mt-8"
-            >
-                <p>
-                    Binnenkort vindt u hier alle muziekfiles, oefenbestanden en
-                    bladmuziek (o.a. Finale-bestanden) om thuis te kunnen
-                    oefenen.
-                </p>
-                <p>
-                    <em
-                        >(Deze pagina wordt later nog verder aangevuld met
-                        specifieke partijen)</em
-                    >
-                </p>
-            </div>
+            {musicpieces.length === 0 ? (
+                <div
+                    class="prose prose-lg prose-primary max-w-none text-gray-700 bg-white p-8 md:p-12 rounded-2xl shadow-xl mt-8"
+                >
+                    <p>
+                        Binnenkort vindt u hier alle muziekfiles, oefenbestanden en
+                        bladmuziek (o.a. Finale-bestanden) om thuis te kunnen oefenen.
+                    </p>
+                </div>
+            ) : (
+                <div class="space-y-6 mt-8">
+                    {musicpieces.map((piece) => {
+                        const files = (piece.files || []).filter((f) => f.fileUrl);
+                        const categoryLabel = piece.category ? categoryLabels[piece.category] || piece.category : '';
+                        return (
+                            <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
+                                <div class="flex flex-wrap items-start justify-between gap-3 mb-2">
+                                    <h3 class="text-2xl font-bold text-primary">{piece.title}</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        {categoryLabel && (
+                                            <span class="inline-block text-xs font-semibold uppercase tracking-wide bg-primary-50 text-primary-700 px-3 py-1 rounded-full">
+                                                {categoryLabel}
+                                            </span>
+                                        )}
+                                        {piece.language && (
+                                            <span class="inline-block text-xs font-semibold uppercase tracking-wide bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                                                {piece.language}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {piece.composer && (
+                                    <p class="text-sm text-gray-500 mb-4">{piece.composer}</p>
+                                )}
+
+                                {files.length === 0 ? (
+                                    <p class="text-sm text-gray-500 italic">Nog geen bestanden toegevoegd.</p>
+                                ) : (
+                                    <ul class="divide-y divide-gray-100 border-t border-gray-100 mt-4">
+                                        {files.map((f) => {
+                                            const displayName = f.label || f.filename || 'Bestand';
+                                            const size = formatFileSize(f.size);
+                                            return (
+                                                <li class="py-3 flex flex-wrap items-center justify-between gap-3">
+                                                    <div class="flex items-center gap-3 min-w-0">
+                                                        {f.extension && (
+                                                            <span class="inline-block text-[10px] font-bold uppercase tracking-wider bg-secondary text-white px-2 py-1 rounded">
+                                                                {f.extension}
+                                                            </span>
+                                                        )}
+                                                        <div class="min-w-0">
+                                                            <div class="font-medium text-gray-900 truncate">{displayName}</div>
+                                                            {f.label && f.filename && (
+                                                                <div class="text-xs text-gray-500 truncate">{f.filename}</div>
+                                                            )}
+                                                            {size && (
+                                                                <div class="text-xs text-gray-400">{size}</div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <a
+                                                        href={`${f.fileUrl}?dl=`}
+                                                        class="inline-flex items-center gap-2 bg-primary-50 text-primary hover:bg-primary hover:text-white font-semibold px-4 py-2 rounded-lg transition-colors text-sm"
+                                                    >
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                                        </svg>
+                                                        Download
+                                                    </a>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
         </div>
     </Section>
 </BaseLayout>
