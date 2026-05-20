@@ -34,7 +34,7 @@ interface SanityMusicPiece {
 }
 
 const announcements: SanityAnnouncement[] = await sanityClient.fetch(`
-  *[_type == "announcement"] | order(date desc) {
+  *[_type == "announcement"] | order(date asc) {
     _id, title, date, location, openbaar, tenue, zwartBoekje, programma, opmerking
   }
 `);
