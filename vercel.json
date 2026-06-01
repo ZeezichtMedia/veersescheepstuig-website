@@ -1,4 +1,10 @@
 {
+  "crons": [
+    {
+      "path": "/api/check-storage",
+      "schedule": "0 8 * * 1"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
