@@ -3,6 +3,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Section from "../components/Section.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import { sanityClient } from "../sanity/client";
+import coriaSongs from "../data/coriaSongs.json";
+
+interface CoriaSong {
+    num: number | null;
+    title: string;
+    file: string;
+}
+
+const songs = coriaSongs as CoriaSong[];
 
 interface SanityAnnouncement {
     _id: string;
@@ -16,59 +25,11 @@ interface SanityAnnouncement {
     opmerking?: string;
 }
 
-interface SanityMusicFile {
-    label?: string;
-    fileUrl?: string;
-    filename?: string;
-    extension?: string;
-    size?: number;
-}
-
-interface SanityMusicPiece {
-    _id: string;
-    title: string;
-    composer?: string;
-    category?: string;
-    language?: string;
-    files?: SanityMusicFile[];
-}
-
 const announcements: SanityAnnouncement[] = await sanityClient.fetch(`
   *[_type == "announcement"] | order(date asc) {
     _id, title, date, location, openbaar, tenue, zwartBoekje, programma, opmerking
   }
 `);
-
-const musicpieces: SanityMusicPiece[] = await sanityClient.fetch(`
-  *[_type == "musicpiece"] | order(title asc) {
-    _id,
-    title,
-    composer,
-    category,
-    language,
-    "files": files[]{
-      label,
-      "fileUrl": file.asset->url,
-      "filename": file.asset->originalFilename,
-      "extension": file.asset->extension,
-      "size": file.asset->size
-    }
-  }
-`);
-
-const categoryLabels: Record<string, string> = {
-    shanty: 'Shanty',
-    ballad: 'Sea ballad',
-    folk: 'Moderne folksong',
-    overig: 'Overig',
-};
-
-function formatFileSize(bytes?: number): string {
-    if (!bytes || bytes <= 0) return '';
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
 
 const heroImage = "/images/Ledenportaal_header.jpg";
 const heroTitle = "Ledenportaal";
@@ -346,95 +307,166 @@ const tenues = [
         </div>
     </Section>
 
-    <!-- Muziekfiles / Finale section -->
+    <!-- Oefenbestanden (Coria) -->
     <Section id="muziekfiles" padding="large">
         <div class="max-w-5xl mx-auto">
             <SectionHeader
-                title="Muziekfiles"
-                subtitle="Bladmuziek, Finale-bestanden en oefenmateriaal"
+                title="Oefenbestanden"
+                subtitle="Oefen je eigen partij online met Coria"
                 align="center"
             />
 
-            {musicpieces.length === 0 ? (
-                <div
-                    class="prose prose-lg prose-primary max-w-none text-gray-700 bg-white p-8 md:p-12 rounded-2xl shadow-xl mt-8"
+            <!-- Uitleg -->
+            <div
+                class="bg-primary-50 border border-primary-100 rounded-2xl p-6 md:p-8 mt-8"
+            >
+                <div class="flex items-start gap-4">
+                    <div
+                        class="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0"
+                    >
+                        <svg
+                            class="w-6 h-6 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
+                            ></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">
+                            Zo werkt het
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">
+                            Klik op een lied hieronder. Je opent dan Coria, waar je
+                            jouw stemgroep kiest en op start drukt om je partij te
+                            horen. Via <span class="font-medium">instellingen</span> pas
+                            je het tempo aan en het volume van je eigen partij en de
+                            andere stemmen. Oefenen kan overal met internet, je hoeft
+                            niets te installeren.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zoekbalk -->
+            <div class="mt-8 mb-6">
+                <div class="relative max-w-md mx-auto">
+                    <svg
+                        class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        ></path>
+                    </svg>
+                    <input
+                        id="coria-search"
+                        type="search"
+                        placeholder="Zoek op titel of nummer..."
+                        autocomplete="off"
+                        class="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary outline-none transition-colors"
+                    />
+                </div>
+                <p
+                    class="text-center text-sm text-gray-500 mt-3"
+                    id="coria-count"
                 >
-                    <p>
-                        Binnenkort vindt u hier alle muziekfiles, oefenbestanden en
-                        bladmuziek (o.a. Finale-bestanden) om thuis te kunnen oefenen.
-                    </p>
-                </div>
-            ) : (
-                <div class="space-y-6 mt-8">
-                    {musicpieces.map((piece) => {
-                        const files = (piece.files || []).filter((f) => f.fileUrl);
-                        const categoryLabel = piece.category ? categoryLabels[piece.category] || piece.category : '';
-                        return (
-                            <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
-                                <div class="flex flex-wrap items-start justify-between gap-3 mb-2">
-                                    <h3 class="text-2xl font-bold text-primary">{piece.title}</h3>
-                                    <div class="flex flex-wrap gap-2">
-                                        {categoryLabel && (
-                                            <span class="inline-block text-xs font-semibold uppercase tracking-wide bg-primary-50 text-primary-700 px-3 py-1 rounded-full">
-                                                {categoryLabel}
-                                            </span>
-                                        )}
-                                        {piece.language && (
-                                            <span class="inline-block text-xs font-semibold uppercase tracking-wide bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
-                                                {piece.language}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
+                    {songs.length} oefenbestanden
+                </p>
+            </div>
 
-                                {piece.composer && (
-                                    <p class="text-sm text-gray-500 mb-4">{piece.composer}</p>
-                                )}
+            <!-- Lijst -->
+            <div id="coria-list" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {
+                    songs.map((song) => (
+                        <a
+                            href={`/coria/${song.file}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="coria-item group flex items-center gap-4 bg-white rounded-xl border border-gray-200 p-3 pr-4 hover:border-primary hover:shadow-md transition-all"
+                            data-title={song.title.toLowerCase()}
+                            data-num={song.num ?? ""}
+                        >
+                            <span class="flex-shrink-0 w-11 h-11 rounded-lg bg-primary-50 text-primary font-bold flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                                {song.num ?? "♪"}
+                            </span>
+                            <span class="flex-1 min-w-0 font-medium text-gray-800 group-hover:text-primary transition-colors truncate">
+                                {song.title}
+                            </span>
+                            <svg
+                                class="flex-shrink-0 w-6 h-6 text-gray-300 group-hover:text-primary transition-colors"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                                />
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                            </svg>
+                        </a>
+                    ))
+                }
+            </div>
 
-                                {files.length === 0 ? (
-                                    <p class="text-sm text-gray-500 italic">Nog geen bestanden toegevoegd.</p>
-                                ) : (
-                                    <ul class="divide-y divide-gray-100 border-t border-gray-100 mt-4">
-                                        {files.map((f) => {
-                                            const displayName = f.label || f.filename || 'Bestand';
-                                            const size = formatFileSize(f.size);
-                                            return (
-                                                <li class="py-3 flex flex-wrap items-center justify-between gap-3">
-                                                    <div class="flex items-center gap-3 min-w-0">
-                                                        {f.extension && (
-                                                            <span class="inline-block text-[10px] font-bold uppercase tracking-wider bg-secondary text-white px-2 py-1 rounded">
-                                                                {f.extension}
-                                                            </span>
-                                                        )}
-                                                        <div class="min-w-0">
-                                                            <div class="font-medium text-gray-900 truncate">{displayName}</div>
-                                                            {f.label && f.filename && (
-                                                                <div class="text-xs text-gray-500 truncate">{f.filename}</div>
-                                                            )}
-                                                            {size && (
-                                                                <div class="text-xs text-gray-400">{size}</div>
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                    <a
-                                                        href={`${f.fileUrl}?dl=`}
-                                                        class="inline-flex items-center gap-2 bg-primary-50 text-primary hover:bg-primary hover:text-white font-semibold px-4 py-2 rounded-lg transition-colors text-sm"
-                                                    >
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                                        </svg>
-                                                        Download
-                                                    </a>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                )}
-                            </div>
-                        );
-                    })}
-                </div>
-            )}
+            <!-- Geen resultaten -->
+            <p
+                id="coria-empty"
+                class="text-center text-gray-500 py-10 hidden"
+            >
+                Geen liedjes gevonden. Probeer een andere zoekterm.
+            </p>
         </div>
     </Section>
+
+    <script>
+        const search = document.getElementById(
+            "coria-search",
+        ) as HTMLInputElement | null;
+        const items = Array.from(
+            document.querySelectorAll<HTMLElement>(".coria-item"),
+        );
+        const count = document.getElementById("coria-count");
+        const empty = document.getElementById("coria-empty");
+        const total = items.length;
+
+        function applyFilter() {
+            const q = (search?.value || "").trim().toLowerCase();
+            let visible = 0;
+            for (const item of items) {
+                const title = item.getAttribute("data-title") || "";
+                const num = item.getAttribute("data-num") || "";
+                const match = !q || title.includes(q) || num.includes(q);
+                item.style.display = match ? "" : "none";
+                if (match) visible++;
+            }
+            if (count) {
+                count.textContent = q
+                    ? `${visible} van ${total} oefenbestanden`
+                    : `${total} oefenbestanden`;
+            }
+            if (empty) empty.style.display = visible === 0 ? "block" : "none";
+        }
+
+        search?.addEventListener("input", applyFilter);
+    </script>
 </BaseLayout>
