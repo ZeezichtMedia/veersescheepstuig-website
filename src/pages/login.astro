@@ -11,12 +11,14 @@ if (Astro.request.method === "POST") {
         const password = data.get("password");
 
         if (password === "Hoist2014!") {
-            // Set the auth cookie. It's secure, HTTP-only, and expires in 30 days.
-            Astro.cookies.set("vs_auth_token", "authenticated", {
+            // Toegangsbewijs is 1 uur geldig (daarna opnieuw inloggen), ongeacht
+            // of de browser openblijft. Cookienaam "vs_auth" is nieuw, zodat oude
+            // langlopende sessies onder de vorige naam vanzelf vervallen.
+            Astro.cookies.set("vs_auth", "authenticated", {
                 path: "/",
                 secure: true,
                 httpOnly: true,
-                maxAge: 60 * 60 * 4, // 4 uur
+                maxAge: 60 * 60, // 1 uur
                 sameSite: "lax",
             });
 

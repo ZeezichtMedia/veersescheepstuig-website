@@ -1,0 +1,5 @@
+---
+// Wist het toegangsbewijs en stuurt terug naar de loginpagina.
+Astro.cookies.delete("vs_auth", { path: "/" });
+return Astro.redirect("/login");
+---

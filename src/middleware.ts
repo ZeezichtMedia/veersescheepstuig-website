@@ -4,7 +4,7 @@ export const onRequest = defineMiddleware((context, next) => {
     // Check if the user is trying to access a protected route
     if (context.url.pathname.startsWith('/ledenportaal')) {
         // Check for the authentication cookie
-        const authCookie = context.cookies.get('vs_auth_token');
+        const authCookie = context.cookies.get('vs_auth');
 
         // If not authenticated, redirect to the login page
         if (!authCookie || authCookie.value !== 'authenticated') {
