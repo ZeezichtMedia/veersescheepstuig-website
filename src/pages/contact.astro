@@ -141,8 +141,9 @@ import SectionHeader from "../components/SectionHeader.astro";
                 ></path>
               </svg>
               <div>
-                <p class="text-gray-900 font-bold">Elke woensdag avond</p>
+                <p class="text-gray-900 font-bold">In principe iedere woensdagavond</p>
                 <p class="text-gray-700">19:45 - 21:45 uur</p>
+                <p class="text-gray-700">m.u.v. de vakanties</p>
               </div>
             </div>
 
@@ -183,8 +184,7 @@ import SectionHeader from "../components/SectionHeader.astro";
   <Section background="gray" padding="large">
     <div class="max-w-6xl mx-auto">
       <SectionHeader
-        title="Dagelijks bestuur"
-        subtitle="Zo kunt u ons bereiken"
+        title="Zo kunt u ons bereiken"
       />
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
@@ -263,8 +263,27 @@ import SectionHeader from "../components/SectionHeader.astro";
         <div class="bg-white p-8 rounded-xl shadow-lg">
           <div class="text-primary-600 font-bold mb-2">Penningmeester</div>
           <h4 class="text-xl font-bold text-gray-900 mb-4">
-            Luc van Puymbroeck
+            Luc Van Puymbroeck
           </h4>
+          <a
+            href="mailto:penningmeester@veersescheepstuig.nl"
+            class="text-gray-700 hover:text-primary flex items-center gap-2"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              ></path>
+            </svg>
+            penningmeester@veersescheepstuig.nl
+          </a>
         </div>
       </div>
 

@@ -11,15 +11,12 @@ board:
     phone: "06 83 35 05 36"
     info: "Hier kunt u ook de gratis nieuwsbrief aanvragen"
   - role: "Penningmeester"
-    name: "Luc van Puymbroeck"
+    name: "Luc Van Puymbroeck"
+    email: "penningmeester@veersescheepstuig.nl"
   - role: "Concertcoördinatie (boekingen)"
     name: "Henk de Jonge"
     email: "hjdejonge@zeelandnet.nl"
     info: "Algemeen bestuurslid"
-  - role: "Dirigent"
-    name: "Moritz Benschop"
-    email: "dirigent@veersescheepstuig.nl"
-    info: "Muzikale leiding sinds 2024"
 
 general:
   address: "p/a Vernovenhoekstraat 45"
